@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Attendance Tracker - Simple Version</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .student {
+      margin: 5px 0;
+      padding: 8px;
+      background-color: #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .status {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      width: 80px;
+      text-align: center;
+    }
+    .present {
+      background-color: #c8e6c9;
+      color: #256029;
+    }
+    .absent {
+      background-color: #ffcdd2;
+      color: #b71c1c;
+    }
+    button {
+      margin-left: 5px;
+      padding: 5px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .present-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+    .absent-btn {
+      background-color: #f44336;
+      color: white;
+    }
+    #summary {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    #controls {
+      text-align: center;
+      margin-top: 25px;
+    }
+    #resetBtn, #saveBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    #resetBtn {
+      background-color: #2196f3;
+      color: white;
+    }
+    #saveBtn {
+      background-color: #4caf50;
+      color: white;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Student Attendance Tracker</h1>
+
+  <div id="studentList"></div>
+
+  <div id="summary"></div>
+
+  <div id="controls">
+    <button id="resetBtn">Reset Attendance</button>
+    <button id="saveBtn">Save Attendance</button>
+  </div>
+
+  <script>
+    // Create roll numbers 300 to 430
+    var students = [];
+    for (var i = 300; i <= 430; i++) {
+      students.push(i);
+    }
+
+    // Attendance object: true = present, false = absent
+    var attendance = {};
+
+    // Initialize attendance to all present
+    function initAttendance() {
+      for (var i = 0; i < students.length; i++) {
+        attendance[students[i]] = true;
+      }
+    }
+
+    // Render student list
+    function renderStudents() {
+      var container = document.getElementById('studentList');
+      container.innerHTML = '';
+
+      for (var i = 0; i < students.length; i++) {
+        var roll = students[i];
+
+        var studentDiv = document.createElement('div');
+        studentDiv.className = 'student';
+
+        var rollText = document.createElement('span');
+        rollText.textContent = 'Roll No: ' + roll;
+
+        var statusSpan = document.createElement('span');
+        statusSpan.className = 'status';
+        if (attendance[roll]) {
+          statusSpan.textContent = 'PRESENT';
+          statusSpan.classList.add('present');
+        } else {
+          statusSpan.textContent = 'ABSENT';
+          statusSpan.classList.add('absent');
+        }
+
+        var presentBtn = document.createElement('button');
+        presentBtn.textContent = 'Present';
+        presentBtn.className = 'present-btn';
+        presentBtn.disabled = attendance[roll];
+        presentBtn.onclick = (function(r){
+          return function(){
+            attendance[r] = true;
+            renderStudents();
+            updateSummary();
+          }
+        })(roll);
+
+        var absentBtn = document.createElement('button');
+        absentBtn.textContent = 'Absent';
+        absentBtn.className = 'absent-btn';
+        absentBtn.disabled = !attendance[roll];
+        absentBtn.onclick = (function(r){
+          return function(){
+            attendance[r] = false;
+            renderStudents();
+            updateSummary();
+          }
+        })(roll);
+
+        studentDiv.appendChild(rollText);
+        studentDiv.appendChild(presentBtn);
+        studentDiv.appendChild(absentBtn);
+        studentDiv.appendChild(statusSpan);
+
+        container.appendChild(studentDiv);
+      }
+    }
+
+    // Update summary of present and absent
+    function updateSummary() {
+      var presentCount = 0;
+      var absentCount = 0;
+      for (var i = 0; i < students.length; i++) {
+        if (attendance[students[i]]) {
+          presentCount++;
+        } else {
+          absentCount++;
+        }
+      }
+      var summary = document.getElementById('summary');
+      summary.textContent = 'Total Present: ' + presentCount + ' | Total Absent: ' + absentCount;
+    }
+
+    // Reset attendance
+    function resetAttendance() {
+      initAttendance();
+      renderStudents();
+      updateSummary();
+    }
+
+    // Save attendance — display only absent roll numbers in one line, comma-separated
+    function saveAttendance() {
+      var absentRolls = [];
+      for (var i = 0; i < students.length; i++) {
+        if (!attendance[students[i]]) {
+          absentRolls.push(students[i]);
+        }
+      }
+      var absentString = absentRolls.join(', ');
+      console.log(absentString);
+      alert('Attendance saved! Check console for absent roll numbers.');
+    }
+
+    // Initialize everything
+    function init() {
+      initAttendance();
+      renderStudents();
+      updateSummary();
+
+      document.getElementById('resetBtn').onclick = resetAttendance;
+      document.getElementById('saveBtn').onclick = saveAttendance;
+    }
+
+    window.onload = init;
+  </script>
+
+</body>
+</html>

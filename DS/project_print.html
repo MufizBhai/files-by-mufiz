@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Attendance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .student-list {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .student {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .status {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .present {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .absent {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .summary {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 18px;
+    }
+
+    button {
+      margin: 0 5px;
+      padding: 8px 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .present-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .absent-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    #resetBtn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #saveBtn {
+      background-color: #28a745;
+      color: white;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Student Attendance Tracker</h1>
+
+  <div class="student-list" id="studentList"></div>
+
+  <div class="summary" id="summary"></div>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <button id="resetBtn">Reset Attendance</button>
+    <button id="saveBtn">Save Attendance</button>
+  </div>
+
+  <script>
+    const students = [];
+    for (let i = 300; i <= 430; i++) {
+      students.push(i.toString());
+    }
+
+    const attendance = {};
+
+    const studentListEl = document.getElementById("studentList");
+    const summaryEl = document.getElementById("summary");
+    const resetBtn = document.getElementById("resetBtn");
+    const saveBtn = document.getElementById("saveBtn");
+
+    function renderStudents() {
+      studentListEl.innerHTML = '';
+      students.forEach(roll => {
+        if (!(roll in attendance)) attendance[roll] = true; // Default Present
+
+        const studentEl = document.createElement("div");
+        studentEl.className = "student";
+
+        const nameEl = document.createElement("span");
+        nameEl.textContent = `Roll No: ${roll}`;
+
+        // Present button
+        const presentBtn = document.createElement("button");
+        presentBtn.textContent = "Present";
+        presentBtn.className = "present-btn";
+        presentBtn.disabled = attendance[roll]; // disable if already present
+        presentBtn.onclick = () => {
+          attendance[roll] = true;
+          renderStudents();
+        };
+
+        // Absent button
+        const absentBtn = document.createElement("button");
+        absentBtn.textContent = "Absent";
+        absentBtn.className = "absent-btn";
+        absentBtn.disabled = !attendance[roll]; // disable if already absent
+        absentBtn.onclick = () => {
+          attendance[roll] = false;
+          renderStudents();
+        };
+
+        const statusEl = document.createElement("span");
+        statusEl.className = "status";
+        updateStatus(statusEl, attendance[roll]);
+
+        const controlsDiv = document.createElement("div");
+        controlsDiv.style.display = "flex";
+        controlsDiv.style.alignItems = "center";
+        controlsDiv.style.gap = "10px";
+        controlsDiv.appendChild(presentBtn);
+        controlsDiv.appendChild(absentBtn);
+        controlsDiv.appendChild(statusEl);
+
+        studentEl.appendChild(nameEl);
+        studentEl.appendChild(controlsDiv);
+
+        studentListEl.appendChild(studentEl);
+      });
+
+      updateSummary();
+    }
+
+    function updateStatus(el, isPresent) {
+      if (isPresent) {
+        el.textContent = "PRESENT";
+        el.classList.remove("absent");
+        el.classList.add("present");
+      } else {
+        el.textContent = "ABSENT";
+        el.classList.remove("present");
+        el.classList.add("absent");
+      }
+    }
+
+    function updateSummary() {
+      let presentCount = 0;
+      let absentCount = 0;
+
+      for (let present of Object.values(attendance)) {
+        if (present) presentCount++;
+        else absentCount++;
+      }
+
+      summaryEl.textContent = `Total Present: ${presentCount} | Total Absent: ${absentCount}`;
+    }
+
+    function resetAttendance() {
+      for (let roll of students) {
+        attendance[roll] = true; // Reset all to Present
+      }
+      renderStudents();
+    }
+
+    function saveAttendance() {
+      const absentRolls = [];
+      for (let roll of students) {
+        if (!attendance[roll]) {
+          absentRolls.push(roll);
+        }
+      }
+      console.log("Absent Roll Numbers:", absentRolls);
+      alert("Attendance saved! Check console for absent roll numbers.");
+    }
+
+    resetBtn.addEventListener("click", resetAttendance);
+    saveBtn.addEventListener("click", saveAttendance);
+
+    renderStudents();
+  </script>
+
+</body>
+</html>
