@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #demo{
+        height: 300px;
+        width: 300px;
+        background-color: red;
+    }
+</style>
+<body onkeypress="handleMouseEvent(event)" onkeydown="handleMouseEvent(event)" onkeyup="handleMouseEvent(event)">
+    <div id = "demo">
+    <script>
+        function handleMouseEvent(event)
+        {
+            const demo = document.getElementById('demo')
+            console.log("event : ",event);
+            console.log("event : ",event.key);
+            demo.innerHTML = `event : ${event.key}`
+        }
+    </script>
+</body>
+</html>

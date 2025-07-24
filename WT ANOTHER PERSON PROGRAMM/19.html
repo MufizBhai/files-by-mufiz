@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="keyboardInput" placeholder="type here">
+    <div id="output"></div>
+
+    <script>
+        const keyboardInput = document.getElementById('keyboardInput');
+        const output = document.getElementById('output');
+
+        keyboardInput.addEventListener('keypress' , logKeyboardEvent);
+
+        function logKeyboardEvent(event)
+        {
+            const key = event.key;
+
+            if(isVowel(key))
+            {
+                output.textContent = 'vowel is pressed';
+            }
+            else if(isAlphabate(key))
+            {
+                output.textContent = 'Alphabate is pressed';
+            }
+            else if(isNum(key))
+            {
+                output.textContent = 'Number is pressed';
+            }
+            else
+            {
+                output.textContent = 'Special Symbol is pressed';
+            }
+
+            function isVowel(char)
+            {
+                return 'aeiouAEIOU'.includes(char);
+            }
+
+            function isAlphabate(char)
+            {
+                return /^[a-zA-Z]$/.test(char) && !isVowel(char);
+            }
+
+            function isNum(char)
+            {
+                return /^[0-9]$/.test(char);
+            }
+
+        }
+    </script>
+</body>
+</html>

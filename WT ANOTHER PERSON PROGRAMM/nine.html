@@ -14,19 +14,12 @@
 <body>
     <script>
         let n = parseInt(prompt("Enter a number="))
-
-        for (let i=1; i<=n; i++){
-            for(let j=1; j<=n; j++){
-                if(i==n || i==1 || j==n || j==1){
-                    document.write("*")
-                }
-                else{
-                    document.write("&nbsp")
-                }
+        for (let i=0; i<=n; i++){
+            for(let j=0; j<=n-i; j++){
+                document.write("*")
             }
             document.write("<br/>")
-        }
-    </script>
-    
-</body>
-</html>
+    }
+        </script>
+    </body>
+    </html>

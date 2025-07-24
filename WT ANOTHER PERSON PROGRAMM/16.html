@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #demo{
+        height: 300px;
+        width: 300px;
+        background-color: red;
+    }
+</style>
+<body>
+    <div id="demo" ondblclick="handleMouseEvent(event)" onclick=handleMouseEvent(event) onmousedown="handleMouseEvent(event)"></div>
+    <script>
+        function handleMouseEvent(event)
+        {
+            const demo = document.getElementById('demo')
+            console.log("event : ",event);
+            demo.innerHTML = `event : ${event.type}`
+        }
+    </script>
+</body>
+</html>
