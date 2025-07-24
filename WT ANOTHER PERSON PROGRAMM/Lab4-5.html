@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let n = parseInt(prompt("Enter value"));
+
+        print("Original array "+n);
+
+        let rev;
+
+        let r = n%10
+        rev = rev*100+r;
+        n=n/10;
+
+        console.log(n);
+        console.log(rev);
+
+        if(n==rev){
+            console.log("Palindrome");
+        }
+        else{
+            console.log("Not")
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //WAP to demonstrate callbacks in javascript
+        function processUserInput(name, callback) {
+            console.log(`Processing input for: ${name}`);
+            callback(name);
+        }
+
+        function greetUser(name) {
+            console.log(`Hello, ${name}! Welcome to the site.`);
+        }
+
+        processUserInput("Rakshil", greetUser);
+
+    </script>
+</body>
+
+</html>

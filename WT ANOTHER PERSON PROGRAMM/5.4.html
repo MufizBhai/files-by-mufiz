@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [1, 2, 2, 3, 4, 4, 5];
+        var result = arr.reduce(function(output, item) {
+        if (output.indexOf(item) == -1) {
+            output.push(item);
+    }
+          return output;
+      }, []);
+
+      document.write(result);
+
+    
+
+    </script>
+</body>
+</html>

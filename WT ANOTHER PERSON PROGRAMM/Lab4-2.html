@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=0, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr = [];
+
+        var size = parseInt(prompt("Enter Size here: "));
+
+        for(let i=0;i<=size;i++){
+            var n = parseInt(prompt("Enter value"));
+            arr.push(n);
+        }
+        console.log("Original array  "+arr);
+
+        arr.sort((a,b)=>{
+            return a-b;
+        });
+
+        console.log("After sorting  "+arr);
+    </script>
+</body>
+</html>

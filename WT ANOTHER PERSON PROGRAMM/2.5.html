@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mouse Event</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function mouseOver(text) {
+			document.getElementById('text').style.color="red";
+		}
+		function mouseOut(text) {
+			document.getElementById('text').style.color="black";
+		}
+	</script>
+	<h1 id="text" onmouseover="mouseOver()" onmouseout="mouseOut()">tejas pathak...</h1>
+</body>
+</html>

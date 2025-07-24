@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WAP to recognize which keyboard event is fired. </title>
+</head>
+<body>
+    <div id="eventInfo">Event : </div>
+
+    <script>
+        document.addEventListener('keydown',(event)=>
+        {
+            document.getElementById("eventInfo").innerHTML = `keydown : ${event.key}`;   
+        })
+        document.getElementById("eventInfo").addEventListener('keyup',(event)=>
+        {
+          document.innerHTML = `keyup : ${event.key}`;   
+        })
+        document.getElementById("eventInfo").addEventListener('keyclick',(event)=>
+        {
+            document.innerHTML = `keyclick : ${event.key}`;   
+        })
+    </script>
+
+</body>
+</html>

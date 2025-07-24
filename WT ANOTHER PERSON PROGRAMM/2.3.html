@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WAP to recognize which mouse event is fired.</title>
+</head>
+<body>
+	<button id="eventButton"><h1>Hover or Click Me</h1></button>
+    <div id="eventInfo">Event : </div>
+
+    <script>
+        const eventButton = document.getElementById("eventButton");
+        const eventInfo = document.getElementById("eventInfo");
+
+        function showEventInfo(event) {
+            eventInfo.textContent = `Event: ${event.type}`;
+        }
+
+        document.addEventListener("click", showEventInfo);
+        document.addEventListener("dblclick", showEventInfo);
+        document.addEventListener("mouseover", showEventInfo);
+        document.addEventListener("mouseout", showEventInfo);
+        document.addEventListener("mousedown", showEventInfo);
+        document.addEventListener("mouseup", showEventInfo);
+        document.addEventListener("mouseleave",showEventInfo);
+        document.addEventListener("mousecontext",showEventInfo);
+    </script>
+
+</body>
+</html>

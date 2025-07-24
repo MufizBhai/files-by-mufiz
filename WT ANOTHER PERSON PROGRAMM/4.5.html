@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var n=parseInt(prompt("Enter Number Or String :"));
+        var a=n;
+
+        reverse=0;
+        while(n>0){
+            rem=n%10;
+            reverse=reverse*10+rem;
+            n=Math.floor(n/10)
+        }
+        if(reverse==a){
+            document.write("Number Is Pailindrom");
+        }
+        else{
+            document.write("Number Is Not Pailindrom");
+        }
+    </script>
+</body>
+</html>
